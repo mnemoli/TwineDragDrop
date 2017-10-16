@@ -7,12 +7,23 @@ Get the simple inventory https://github.com/ChapelR/custom-macros-for-sugarcube-
 Copy simple inventory code, and the code from this repo, to your SugarCube story by clicking your story name, then "Edit Story Javascript".
 
 You must also ensure that each of your inventory item wrappers (div, span or whatever) has a unique ID starting with "inv-" that can identify the item that has been used. For example:
-```
+```html
 <div id="inv-egg" class="invItem" draggable="true" ondragstart="dragInv(event)">Egg</div>
 <div id="inv-corn" class="invItem" draggable="true" ondragstart="dragInv(event)">Corn</div>
 ```
 
-You then define interactions in your \<\<droppable\>\> macro, for example:
+If you're using ChapelR's inventory system, this can be achieved by altering the <\<\inventory\>\> macro to add such div wrappers, e.g.
+```javascript
+content = items.map(function(item) {
+  return 
+    '<div id="inv-' + item + '" class="invItem"  draggable="true" ondragstart="dragInv(event)">'
+    + item + 
+    '</div>'
+   }).join(separator);
+}
+```
+
+You then define interactions in your \<\<droppable\>\> macro:
 ```
 <<droppable "Chicken">>\
   <<item "egg">>\
